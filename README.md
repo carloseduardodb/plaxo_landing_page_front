@@ -73,7 +73,7 @@ O projeto está configurado para deploy na Vercel com analytics integrado.
 
 ## 👨‍💻 Autor
 
-Criado por [Carlos Eduardo Dias Batista](https://carlosedias.com)
+Criado por [Carlos Eduardo Dias Batista](https://carloseduardodiasbatista.com.br/)
 
 ## 📄 Licença
 

@@ -228,7 +228,7 @@ export default function PlaxoLanding() {
               <CardDescription className="text-base leading-relaxed">
                 Plaxo é idealizada e desenvolvida por{" "}
                 <Link
-                  href="https://carlosedias.com"
+                  href="https://carloseduardodiasbatista.com.br/"
                   target="_blank"
                   className="text-blue-600 hover:text-blue-700 font-semibold hover:underline transition-colors"
                 >
@@ -300,7 +300,7 @@ export default function PlaxoLanding() {
               <p>
                 © 2025 Plaxo — parte do ecossistema criado por{" "}
                 <Link
-                  href="https://carlosedias.com"
+                  href="https://carloseduardodiasbatista.com.br/"
                   target="_blank"
                   className="text-foreground hover:text-blue-600 transition-colors font-medium"
                 >
