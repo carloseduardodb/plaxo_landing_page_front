@@ -5,7 +5,7 @@ WORKDIR /app
 # Dependencies
 FROM base AS deps
 COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable pnpm && pnpm install --frozen-lockfile --prod
+RUN corepack enable pnpm && pnpm install --frozen-lockfile
 
 # Builder
 FROM base AS builder
@@ -14,18 +14,21 @@ RUN corepack enable pnpm && pnpm install --frozen-lockfile
 COPY . .
 RUN pnpm build
 
-# Runner - distroless for minimal size
-FROM gcr.io/distroless/nodejs18-debian11 AS runner
+# Runner
+FROM node:18-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NODE_OPTIONS="--max-old-space-size=512"
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
 ENV PORT=3000 HOSTNAME="0.0.0.0"
 
-CMD ["server.js"]
+CMD ["node", "server.js"]
