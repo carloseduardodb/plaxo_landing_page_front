@@ -4,15 +4,15 @@ WORKDIR /app
 
 # Dependencies
 FROM base AS deps
-COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable pnpm && pnpm install --frozen-lockfile
+COPY package.json yarn.lock* ./
+RUN yarn install --frozen-lockfile --production
 
 # Builder
 FROM base AS builder
-COPY package.json pnpm-lock.yaml* ./
-RUN corepack enable pnpm && pnpm install --frozen-lockfile
+COPY package.json yarn.lock* ./
+RUN yarn install --frozen-lockfile
 COPY . .
-RUN pnpm build
+RUN yarn build
 
 # Runner
 FROM node:18-alpine AS runner
